@@ -17,9 +17,12 @@ export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 export const firestore = getFirestore(app);
 
-// Connect to Firebase Emulators only when we are in local development Mode
-// AND an emulator host is configured. This prevents connection errors in production.
-if (import.meta.env.DEV && import.meta.env.VITE_FIREBASE_EMULATOR_HOST) {
+// Use a strict check to ensure emulators NEVER run in production.
+// Only allow emulators if the domain is explicitly localhost or 127.0.0.1
+const isLocalhost = typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+if (import.meta.env.VITE_FIREBASE_EMULATOR_HOST && isLocalhost) {
   // Auth: 19099 (matches firebase.json)
   connectAuthEmulator(auth, "http://localhost:19099");
   // Firestore: 18087 (fixed to match firebase.json)
