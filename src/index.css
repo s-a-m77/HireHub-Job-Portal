@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@layer base {
+	/* Light mode: strict white background */
+	body {
+		background-color: #ffffff;
+		color: #111827; /* Tailwind gray-900 for readable dark text */
+	}
+
+	/* Dark mode: dark gray background (not pure black) */
+	.dark body {
+		background-color: #111827; /* Tailwind gray-900 */
+		color: #f3f4f6; /* Tailwind gray-100 for readable light text */
+	}
+}
